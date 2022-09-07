@@ -4,6 +4,19 @@ import API from '../api';
 const Users = () => {
   const [users, setUsers] = useState(API.users.fetchAll());
   const getColor = 'm-2 badge bg-';
+
+  const nobodyRave = () => {
+    return (
+      <span className="badge bg-danger">
+        с тобой никто не хочет тусить, лох :(
+      </span>
+    );
+  };
+
+  const handleDelete = (userId) => {
+    setUsers((prevState) => prevState.filter((user) => user._id !== userId));
+  };
+
   const renderPhrase = (number, titles) => {
     let cases = [2, 0, 1, 1, 1, 2];
     return titles[
@@ -12,7 +25,8 @@ const Users = () => {
         : cases[number % 10 < 5 ? number % 10 : 5]
     ];
   };
-  const nobodyRave = () => {
+
+  const renderContent = () => {
     if (users.length > 0) {
       return (
         <div className="container">
@@ -70,19 +84,11 @@ const Users = () => {
         </div>
       );
     } else {
-      return (
-        <h1>
-          <span className="badge bg-danger">
-            с тобой никто не хочет тусить, лох!
-          </span>
-        </h1>
-      );
+      return <h1>{nobodyRave()}</h1>;
     }
   };
-  const handleDelete = (userId) => {
-    setUsers((prevState) => prevState.filter((user) => user._id !== userId));
-  };
-  return <div className="container">{nobodyRave()}</div>;
+
+  return <div className="container">{renderContent()}</div>;
 };
 
 export default Users;
