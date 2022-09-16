@@ -4,7 +4,7 @@ const BookMark = (props) => {
   console.log(props);
   return (
     <td>
-      <button onClick={() => props.click(props.id)}>
+      <button className="icon_center" onClick={() => props.click(props.id)}>
         <i
           className={
             'bi btn-lg bi-bookmark' + (props.status ? '-heart-fill' : '')

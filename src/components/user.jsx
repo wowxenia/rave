@@ -7,7 +7,7 @@ const User = ({ props, handleDelete, handleToggleBookMark }) => {
     <>
       {props.map((user) => {
         return (
-          <tr key={user._id}>
+          <tr key={user._id} className="align-text-bottom">
             <td>{user.name}</td>
             <Qualitie qualities={user.qualities} />
             <td>{user.profession.name}</td>
@@ -16,7 +16,6 @@ const User = ({ props, handleDelete, handleToggleBookMark }) => {
             <BookMark
               status={user.bookmark}
               id={user._id}
-              // onClick={() => handleToggleBookMark(user._id)}
               click={handleToggleBookMark}
             />
             <td>
