@@ -19,7 +19,10 @@ const User = ({ props, handleDelete, handleToggleBookMark }) => {
               click={handleToggleBookMark}
             />
             <td>
-              <button onClick={() => handleDelete} className="btn btn-danger">
+              <button
+                onClick={() => handleDelete(user._id)}
+                className="btn btn-danger"
+              >
                 delete
               </button>
             </td>

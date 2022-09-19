@@ -1,7 +1,6 @@
 import React from 'react';
 
 const BookMark = (props) => {
-  console.log(props);
   return (
     <td>
       <button className="icon_center" onClick={() => props.click(props.id)}>
