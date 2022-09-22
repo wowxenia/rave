@@ -20,12 +20,12 @@ function App() {
     );
   };
   return (
-    <div className="container">
+    <div className='container'>
       <SearchStatus length={users.length} />
       <Users
         users={users}
-        handleDelete={handleDelete}
-        handleToggleBookMark={handleToggleBookMark}
+        onDelete={handleDelete}
+        onToggleBookMark={handleToggleBookMark}
       />
     </div>
   );

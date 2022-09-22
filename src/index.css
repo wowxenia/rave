@@ -1,22 +1,22 @@
 @font-face {
-  font-family: 'Product Sans Regular';
+  font-family: "Product Sans Regular";
   font-style: normal;
   font-weight: normal;
-  src: local('Product Sans Regular'),
-    url('./vendor/ProductSans-Regular.woff') format('woff');
+  src: local("Product Sans Regular"),
+    url("./vendor/ProductSans-Regular.woff") format("woff");
 }
 
 body {
   margin-top: 15px;
-  font-family: 'Product Sans Regular', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Product Sans Regular", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
