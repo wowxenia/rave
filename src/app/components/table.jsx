@@ -5,7 +5,7 @@ import TableBody from './tableBody';
 
 const Table = ({ onSort, selectedSort, columns, data, children }) => {
   return (
-    <table className='table table-light mt-3'>
+    <table className='table table-light'>
       {children || (
         <>
           <TableHeader {...{ onSort, selectedSort, columns }} />

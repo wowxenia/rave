@@ -8,7 +8,7 @@ import GroupList from './groupList';
 import SearchStatus from './searchStatus';
 import UserTable from './usersTable';
 
-const Users = () => {
+const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfession] = useState();
   const [selectedProf, setSelectedProf] = useState();
@@ -19,6 +19,7 @@ const Users = () => {
   useEffect(() => {
     api.users.fetchAll().then((data) => setUsers(data));
   }, []);
+
   const handleDelete = (userId) => {
     setUsers(users.filter((user) => user._id !== userId));
   };
@@ -93,7 +94,7 @@ const Users = () => {
               onToggleBookMark={handleToggleBookMark}
             />
           )}
-          <div className='d-flex justify-content-center'>
+          <div className='d-flex justify-content-center mt-4'>
             <Pagination
               itemsCount={count}
               pageSize={pageSize}
@@ -105,10 +106,10 @@ const Users = () => {
       </div>
     );
   }
-  return 'loading...';
+  return <h3 className='p-3'>loading...</h3>;
 };
-Users.propTypes = {
+UsersList.propTypes = {
   users: PropTypes.array
 };
 
-export default Users;
+export default UsersList;
