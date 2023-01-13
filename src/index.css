@@ -55,3 +55,7 @@ a {
 a:hover {
   color: #0f5132;
 }
+
+input:focus {
+  outline: none;
+}
