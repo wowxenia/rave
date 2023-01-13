@@ -4,6 +4,8 @@ import { validator } from '../../../utils/validator';
 import api from '../../../api';
 import TextField from '../../common/form/textField';
 import SelectField from '../../common/form/selectField';
+import RadioField from '../../common/form/radioField';
+import MultiSelectField from '../../common/form/multiSelectField';
 
 const EditUserPage = () => {
   const { userId } = useParams();
@@ -12,7 +14,9 @@ const EditUserPage = () => {
   const [data, setData] = useState({
     name: '',
     email: '',
-    profession: ''
+    profession: '',
+    sex: 'male',
+    qualities: []
   });
   const [professions, setProfession] = useState([]);
   const [qualities, setQualities] = useState({});
@@ -23,12 +27,17 @@ const EditUserPage = () => {
       if (profData._id === id) return profData;
     }
   };
+
   const getQualities = (elements) => {
     const qualitiesArray = [];
     for (const elem of elements) {
       for (const quality in qualities) {
-        if (elem.value === qualities[quality]._id) {
-          qualitiesArray.push(qualities[quality]);
+        if (elem.value === qualities[quality].value) {
+          qualitiesArray.push({
+            _id: qualities[quality].value,
+            name: qualities[quality].label,
+            color: qualities[quality].color
+          });
         }
       }
     }
@@ -46,7 +55,6 @@ const EditUserPage = () => {
         qualities: getQualities(qualities)
       })
       .then((data) => history.push(`/users/${data._id}`));
-    console.log(data);
   };
   const transformData = (data) => {
     return data.map((qual) => ({ label: qual.name, value: qual._id }));
@@ -61,7 +69,14 @@ const EditUserPage = () => {
         profession: profession._id
       }))
     );
-    api.qualities.fetchAll().then((data) => setQualities(data));
+    api.qualities.fetchAll().then((data) => {
+      const qualitiesList = Object.keys(data).map((optionName) => ({
+        value: data[optionName]._id,
+        label: data[optionName].name,
+        color: data[optionName].color
+      }));
+      setQualities(qualitiesList);
+    });
     api.professions.fetchAll().then((data) => setProfession(data));
   }, []);
   useEffect(() => {
@@ -101,7 +116,7 @@ const EditUserPage = () => {
   return (
     <div className='container mt-5'>
       <div className='row'>
-        <div className='col-md-6 offset-md-3 shadow p-4'>
+        <div className='col-md-6 offset-md-3 shadow bg-light p-4'>
           {!isLoading && Object.keys(professions).length > 0 ? (
             <form onSubmit={handleSubmit}>
               <TextField
@@ -126,6 +141,24 @@ const EditUserPage = () => {
                 onChange={handleChange}
                 value={data.profession}
                 error={errors.profession}
+              />
+              <RadioField
+                label='Выберите ваш пол'
+                options={[
+                  { name: 'Male', value: 'male' },
+                  { name: 'Female', value: 'female' },
+                  { name: 'Other', value: 'other' }
+                ]}
+                value={data.sex}
+                name='sex'
+                onChange={handleChange}
+              />
+              <MultiSelectField
+                defaultValue={data.qualities}
+                options={qualities}
+                onChange={handleChange}
+                name='qualities'
+                label='Выберите ваши качества'
               />
               <button
                 type='submit'
