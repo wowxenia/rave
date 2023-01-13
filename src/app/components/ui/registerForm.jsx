@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { validator } from '../../utils/validator';
-import TextField from '../components/form/textField';
+import TextField from '../common/form/textField';
 import api from '../../api';
-import SelectField from '../components/form/selectField';
-import RadioField from '../components/form/radioField';
-import MultiSelectField from '../components/form/multiSelectField';
-import CheckBoxField from '../components/form/checkBoxField';
+import SelectField from '../common/form/selectField';
+import RadioField from '../common/form/radioField';
+import MultiSelectField from '../common/form/multiSelectField';
+import CheckBoxField from '../common/form/checkBoxField';
 
 const RegisterForm = () => {
   const [data, setData] = useState({

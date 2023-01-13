@@ -1,24 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { paginate } from '../utils/paginate';
-import Pagination from './pagination';
-import api from '../api';
-import GroupList from './groupList';
-import SearchStatus from './searchStatus';
-import UserTable from './usersTable';
+import { paginate } from '../../../utils/paginate';
+import Pagination from '../../common/pagination';
+import api from '../../../api';
+import GroupList from '../../common/groupList';
+import SearchStatus from '../../ui/searchStatus';
+import UserTable from '../../ui/usersTable';
 
-const UsersList = () => {
+const UsersListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfession] = useState();
-  const [selectedProf, setSelectedProf] = useState();
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProf, setSelectedProf] = useState();
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' });
   const pageSize = 8;
 
   const [users, setUsers] = useState();
   useEffect(() => {
     api.users.fetchAll().then((data) => setUsers(data));
+  }, []);
+  const handleDelete = (userId) => {
+    setUsers(users.filter((user) => user._id !== userId));
+  };
+  const handleToggleBookMark = (id) => {
+    const newArray = users.map((user) => {
+      if (user._id === id) {
+        return { ...user, bookmark: !user.bookmark };
+      }
+      return user;
+    });
+    setUsers(newArray);
+  };
+
+  useEffect(() => {
+    api.professions.fetchAll().then((data) => setProfession(data));
   }, []);
 
   useEffect(() => {
@@ -34,31 +50,9 @@ const UsersList = () => {
     setSearchQuery(target.value);
   };
 
-  const handleDelete = (userId) => {
-    setUsers(users.filter((user) => user._id !== userId));
-  };
-  const handleToggleBookMark = (id) => {
-    setUsers(
-      users.map((user) => {
-        if (user._id === id) {
-          return { ...user, bookmark: !user.bookmark };
-        }
-        return user;
-      })
-    );
-  };
-
-  useEffect(() => {
-    api.professions.fetchAll().then((data) => setProfession(data));
-  }, []);
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedProf]);
-
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
-
   const handleSort = (item) => {
     setSortBy(item);
   };
@@ -101,7 +95,7 @@ const UsersList = () => {
         <div className='d-flex flex-column w-75 ms-3'>
           <SearchStatus length={count} />
           <input
-            className='mb-2 shadow-none'
+            className='mb-4 mt-3 border border-light shadow-none'
             type='text'
             name='searchQuery'
             placeholder='Search...'
@@ -131,8 +125,8 @@ const UsersList = () => {
   }
   return <h3 className='p-3'>loading...</h3>;
 };
-UsersList.propTypes = {
+UsersListPage.propTypes = {
   users: PropTypes.array
 };
 
-export default UsersList;
+export default UsersListPage;

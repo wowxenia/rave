@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import api from '../api';
-import QualitiesList from './qualitiesList';
+import api from '../../../api';
+import Qualities from '../../ui/qualities';
 
 const UserPage = ({ userId }) => {
   const [user, setUser] = useState();
@@ -18,7 +18,7 @@ const UserPage = ({ userId }) => {
       <>
         <div className='d-flex flex-column p-4 m-3 bg-light border'>
           <h3>{user.name}</h3>
-          <h3>{<QualitiesList qualities={user.qualities} />}</h3>
+          <h3>{<Qualities qualities={user.qualities} />}</h3>
           <h3>Profession: {user.profession.name}</h3>
           <h3>Completed meetings: {user.completedMeetings}</h3>
           <h3>Rate: {user.rate}</h3>
